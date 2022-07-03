@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+
+  dbpostgres_device:
+    image: 'postgres:11.12-alpine'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=device_status_user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=device_status_dev

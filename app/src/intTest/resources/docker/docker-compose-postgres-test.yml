@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  db-postgres-test:
+    image: 'postgres:11.12-alpine'
+    #in-memory RAM database
+    tmpfs:
+      - /var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=device_status_user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=device_status_test

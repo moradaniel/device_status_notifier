@@ -1,0 +1,9 @@
+{
+    "namespace": "com.devicestatus.domain",
+    "type": "record",
+    "name": "DeviceStatusEventAvro",
+    "fields": [
+        {"name": "device_id", "type": ["null", "string"], "default": null},
+        {"name": "status", "type": ["null", "string"], "default": null}
+    ]
+}

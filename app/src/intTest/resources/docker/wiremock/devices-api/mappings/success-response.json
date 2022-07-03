@@ -1,0 +1,14 @@
+{
+  "request": {
+    "urlPathPattern": "/devices/([0-9]*)",
+    "method": "POST"
+
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {"result":"success"},
+    "headers" : {
+      "Content-Type": "application/json"
+    }
+  }
+}

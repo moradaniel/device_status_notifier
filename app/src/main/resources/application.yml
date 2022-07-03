@@ -1,0 +1,101 @@
+spring:
+  application:
+    name: device-status-notifier
+  devtools:
+    livereload:
+      enabled: false #Set false to disable live reload
+  main:
+    allow-bean-definition-overriding: true
+
+  kafka:
+    properties:
+      schema:
+        registry:
+          url: http://localhost:8081
+    listener:
+      ack-mode: manual_immediate
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      group-id: test_group_id
+      properties:
+        specific:
+          avro:
+            reader: true
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/device_status_dev?currentSchema\=public
+    username: device_status_user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+
+  data:
+    mongodb:
+      authentication-database: admin
+      username: devicestatus_user
+      password: local_pwd
+      database: devicestatusdb
+      port: 27017
+      host: localhost
+
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    ##Disable default pet store sample ui
+    disable-swagger-default-url: true
+
+kafka:
+  topics:
+    device-status-events: avro.device.status.events.1.0
+    device-status-change-notify: push-notifications.1.0
+  group-ids:
+    device-status.group: device-status-group
+  ids:
+    device-status: avro.device.status.events
+  concurrency:
+    deviceStatusConsumer: 2
+# Spring Actuator: features to help monitor and manage your application
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, loggers
+  endpoint:
+    health:
+      show-components: always
+      show-details: always
+    loggers:
+      enabled: true
+  health:
+    mongo:
+      enabled: false
+  info:
+    git:
+      mode: full # to display the full git information (i.e. the full content of git.properties),
+
+
+
+partners:
+  notifyStatus:
+    baseUrl: http://localhost:82
+    urlPath: /devices
+    connectTimeoutMilliseconds: 3000
+    readTimeoutMilliseconds: 3000
+    writeTimeoutMilliseconds: 3000
+    retryMaxAttempts: 4
+    retryDurationBetweenAttemptsMilliseconds: 2000

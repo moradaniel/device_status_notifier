@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/device_status_test?currentSchema=public
+    username: device_status_user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+      # Whether to enable logging of SQL statements.
+    show-sql: true
+
+partners:
+  notifyStatus:
+    baseUrl: http://localhost:82
+    urlPath: /devices
+    connectTimeoutMilliseconds: 3000
+    readTimeoutMilliseconds: 3000
+    writeTimeoutMilliseconds: 3000
+    retryMaxAttempts: 3
+    retryDurationBetweenAttemptsMilliseconds: 200
+

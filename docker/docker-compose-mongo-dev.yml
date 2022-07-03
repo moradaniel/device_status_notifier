@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  devicestatus-mongo-dev:
+    image: mongo:4.0
+    #container_name: devicestatus-mongo-dev
+    ports:
+      - "27017:27017"
+    volumes:
+      - "/var/lib/mongodb-devicestatus-db-dev:/data/db"
+      - ".:/data/scripts"
+      - "../db:/data/schema"
+      - ./mongo-init-dev.js:/docker-entrypoint-initdb.d/mongo-init-dev.js:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: devicestatus_user
+      MONGO_INITDB_ROOT_PASSWORD: local_pwd
+      MONGO_INITDB_USERNAME: devicestatus_user
+      MONGO_INITDB_PASSWORD: local_pwd
+      MONGO_INITDB_DATABASE: devicestatusdb
+      MONGODB_AUTHENTICATION_DATABASE: admin

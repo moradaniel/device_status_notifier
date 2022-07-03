@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  httpbin:
+    image: kennethreitz/httpbin:latest
+    ports:
+      - 81:80
